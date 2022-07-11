@@ -23,46 +23,11 @@ export interface Marketplace {
   stats: MarketplaceStats;
 }
 
-export interface MarketplacePreviewData {
-  subdomain: string;
-  name: string;
-  bannerUrl: string;
-  creators: {
-    creatorAddress: string;
-    profile?: {
-      profileImageUrlHighres?: string;
-      handle?: string;
-    }
-  }[]
-  auctionHouse: {
-    stats?: {
-      floor: string;
-    }
-  };
-  stats: {
-    nfts: string;
-  }
-}
-
 
 export type BuyNowListingPreviewData = {
   nft: OwnedNfTsQuery['nfts'][0],
   marketplace: OwnedNfTsQuery['marketplace'][0]
 };
-
-
-export interface ProfilePreviewData {
-  address: string;
-  profile: {
-    handle?: string;
-    profileImageUrlHighres?: string;
-    bannerImageUrl?: string;
-  }
-  nftCounts: {
-    owned?: number;
-    created?: number;
-  }
-}
 
 interface GraphQLObject {
   __typename: string;
@@ -136,9 +101,8 @@ interface AddressKeyType {
 export type KeyType = AddressKeyType;
 
 export interface Listing {
-  address: string;
+  id: string;
   auctionHouse: string;
-  bookkepper: string;
   seller: string;
   metadata: string;
   purchaseReceipt: string;
@@ -152,7 +116,7 @@ export interface Listing {
 }
 
 export interface Purchase {
-  address: string;
+  id: string;
   buyer: string;
   seller: string;
   auctionHouse: string;
@@ -161,7 +125,7 @@ export interface Purchase {
 }
 
 export interface Offer {
-  address: string;
+  id: string;
   buyer: string;
   price: BN;
   createdAt: string;

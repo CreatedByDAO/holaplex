@@ -3,26 +3,25 @@ import { shortenAddress } from '@/modules/utils/string';
 import {
   getProfileServerSideProps,
   WalletDependantPageProps,
-} from '@/modules/server-side/getProfile';
-import { ProfileDataProvider } from '@/common/context/ProfileData';
-import TextInput2 from '../../../src/common/components/elements/TextInput2';
+} from '@/views/profiles/getProfileServerSideProps';
+import { ProfileDataProvider } from 'src/views/profiles/ProfileDataProvider';
 import { useMemo, useState } from 'react';
 import { useOffersPageQuery } from '../../../src/graphql/indexerTypes';
 import {
   HOLAPLEX_MARKETPLACE_ADDRESS,
   HOLAPLEX_MARKETPLACE_SUBDOMAIN,
-} from '../../../src/common/constants/marketplace';
-import { imgOpt } from '../../../src/common/utils';
+} from '../../../src/views/_global/holaplexConstants';
+import { imgOpt } from '../../../src/lib/utils';
 import Link from 'next/link';
-import { Listing, Marketplace, Nft, Offer } from '@holaplex/marketplace-js-sdk';
-import { DisplaySOL } from '../../../src/common/components/CurrencyHelpers';
+import { AhListing, Marketplace, Nft, Offer } from '@holaplex/marketplace-js-sdk';
+import { DisplaySOL } from '@/components/CurrencyHelpers';
 import { format as formatTime } from 'timeago.js';
-import Button from '../../../src/common/components/elements/Button';
-import AcceptOfferForm from '../../../src/common/components/forms/AcceptOfferForm';
-import UpdateOfferForm from '../../../src/common/components/forms/UpdateOfferForm';
+import Button from '@/components/Button';
+import AcceptOfferForm from '@/components/AcceptOfferForm';
+import UpdateOfferForm from '@/components/UpdateOfferForm';
 import { useWallet } from '@solana/wallet-adapter-react';
-import Modal from '../../../src/common/components/elements/Modal';
-import ProfileLayout from '../../../src/common/components/layouts/ProfileLayout';
+import Modal from '@/components/Modal';
+import ProfileLayout from '../../../src/views/profiles/ProfileLayout';
 
 enum OfferFilters {
   ALL,
@@ -120,7 +119,7 @@ const OfferPage = ({ publicKey, ...props }: WalletDependantPageProps) => {
               ?.sort(byDate)
               .map((offer) => (
                 <div
-                  key={offer.address}
+                  key={offer.id}
                   className={`flex  flex-row justify-between rounded-lg border border-gray-800 p-4`}
                 >
                   <div className={`flex items-center justify-start`}>
@@ -163,7 +162,7 @@ const OfferPage = ({ publicKey, ...props }: WalletDependantPageProps) => {
                       <AcceptOfferForm
                         nft={receivedOffer as Nft | any}
                         offer={offer as Offer}
-                        listing={defaultListing as Listing}
+                        listing={defaultListing as AhListing}
                         marketplace={marketplace as Marketplace}
                         refetch={refetch}
                       />
@@ -187,7 +186,7 @@ const OfferPage = ({ publicKey, ...props }: WalletDependantPageProps) => {
                           title={`Update offer`}
                         >
                           <UpdateOfferForm
-                            listing={defaultListing as Listing}
+                            listing={defaultListing as AhListing}
                             setOpen={setShowUpdateOfferModal}
                             nft={currNFT as Nft | any}
                             marketplace={marketplace as Marketplace}
@@ -213,7 +212,7 @@ const OfferPage = ({ publicKey, ...props }: WalletDependantPageProps) => {
               ?.sort(byDate)
               .map((offer) => (
                 <div
-                  key={offer.address}
+                  key={offer.id}
                   className={`flex flex-row flex-wrap justify-between gap-4 rounded-lg border border-gray-800 p-4`}
                 >
                   <div className={`flex items-center justify-start`}>
@@ -271,7 +270,7 @@ const OfferPage = ({ publicKey, ...props }: WalletDependantPageProps) => {
                           title={`Update offer`}
                         >
                           <UpdateOfferForm
-                            listing={defaultListing as Listing}
+                            listing={defaultListing as AhListing}
                             setOpen={setShowUpdateOfferModal}
                             nft={currNFT as Nft | any}
                             marketplace={marketplace as Marketplace}
