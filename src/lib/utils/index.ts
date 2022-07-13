@@ -15,7 +15,8 @@ export const maybeCDN = (uri: string) => {
 export const getEnvironmentVariable = (environmentVariable: string): string => {
   const unvalidatedEnvironmentVariable = process.env[environmentVariable];
   if (!unvalidatedEnvironmentVariable) {
-    throw new Error(`Couldn't find environment variable: ${environmentVariable}`);
+    console.error(`Couldn't find env var: ${environmentVariable}`);
+    return '';
   } else {
     return unvalidatedEnvironmentVariable;
   }
