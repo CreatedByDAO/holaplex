@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react';
-import { Nft } from '../graphql/indexerTypes';
-import { imgOpt } from '../lib/utils';
-import { LoadingContainer } from './LoadingPlaceholders';
+import { Nft } from '@/graphql/indexerTypes';
+import { imgOpt } from '@/lib/utils';
 import NFTImage from './NFTImage';
 
 interface NFTFileProps {
@@ -47,7 +46,7 @@ const NFTFile: FC<NFTFileProps> = ({ nft, loading }) => {
             controlsList={`nodownload`}
             loop={true}
             poster={imgOpt(nft?.image, 800)!}
-            src={nft.files[0].uri}
+            src={nft.files.find((file) => file.fileType === 'video/mp4')?.uri || nft.files[0].uri}
           />
         ) : (
           nft?.image && (

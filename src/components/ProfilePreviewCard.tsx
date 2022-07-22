@@ -1,6 +1,6 @@
+import { QueryContext } from '@/hooks/useApolloQuery';
 import { getFallbackImage } from '@/modules/utils/image';
 import { showFirstAndLastFour } from '@/modules/utils/string';
-import { QueryContext } from '@/views/home/home.hooks';
 import { useAnalytics } from '@/views/_global/AnalyticsProvider';
 import { useAnchorWallet, useConnection } from '@solana/wallet-adapter-react';
 import classNames from 'classnames';
@@ -22,6 +22,7 @@ export interface ProfilePreviewData {
 export interface ProfilePreviewProps {
   address: string;
   context: QueryContext<ProfilePreviewData>;
+  className?: string;
 }
 
 export default function ProfilePreview(props: ProfilePreviewProps): JSX.Element {
@@ -46,7 +47,7 @@ export default function ProfilePreview(props: ProfilePreviewProps): JSX.Element 
   const createdNftsString: string = props.context.data.nftsCreated.toLocaleString();
 
   return (
-    <PreviewContainer>
+    <PreviewContainer className={classNames(props.className)}>
       {/* put the profile link under everything so that it doesnt interfere with other interactions,
           and force every element to have no pointer events unless it needs them */}
       <div className="pointer-events-none flex flex-col justify-between">
@@ -114,12 +115,15 @@ export function ProfilePreviewLoadingCard(): JSX.Element {
       <div className="h-full w-full animate-pulse bg-gray-800" />
     </PreviewContainer>
   );
-};
+}
 
-const PreviewContainer: FC<any> = (props) => {
+const PreviewContainer: FC<any> = ({ className, ...props }) => {
   return (
     <div
-      className="relative flex aspect-[364/300] w-full overflow-clip rounded-lg shadow-md shadow-black duration-300 hover:scale-[1.02]"
+      className={classNames(
+        'relative flex aspect-[364/300] w-full overflow-clip rounded-lg bg-gray-900 shadow-md shadow-black duration-300 hover:scale-[1.02]',
+        className
+      )}
       {...props}
     />
   );

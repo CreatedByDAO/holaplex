@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 import { FollowUnfollowButton } from '@/components/FollowUnfollowButton';
 import { getHandle, User } from './feed.utils';
 import { ProfilePFP } from './FeedCard';
+import Popover from '@/components/Popover';
+import { getProfilePreivewDataFromUser } from '@/lib/utils/typeUtils';
+import ProfilePreview from '@/components/ProfilePreviewCard';
 
 function FollowListItem({
   user,
@@ -14,14 +17,32 @@ function FollowListItem({
   myFollowingList: string[];
 }) {
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between gap-4">
       <div className="flex items-center">
-        <div className="mr-4">
+        <div className="mr-4 flex flex-shrink-0">
           <ProfilePFP user={user} />
         </div>
-        <Link href={'/profiles/' + user.address + '/nfts'} passHref>
-          <a>{getHandle(user)}</a>
-        </Link>
+        <Popover
+          key={user.address}
+          isShowOnHover={true}
+          placement="right"
+          content={
+            <ProfilePreview
+              className="w-80"
+              address={user.address}
+              context={{
+                data: getProfilePreivewDataFromUser(user),
+                loading: false,
+                refetch: () => {},
+                fetchMore: () => {},
+              }}
+            />
+          }
+        >
+          <Link href={'/profiles/' + user.address + '/nfts'} passHref>
+            <a className="truncate">{getHandle(user)}</a>
+          </Link>
+        </Popover>
       </div>
 
       <FollowUnfollowButton

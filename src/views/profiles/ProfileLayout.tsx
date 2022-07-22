@@ -11,8 +11,8 @@ import styled from 'styled-components';
 import { shortenAddress, showFirstAndLastFour } from '@/modules/utils/string';
 import { DuplicateIcon, CheckIcon } from '@heroicons/react/outline';
 import { useProfileData } from 'src/views/profiles/ProfileDataProvider';
-import { FollowerCount } from '../../components/FollowerCount';
-import { FollowModal, FollowModalVisibility } from '../../components/FollowModal';
+import { FollowerCount } from './FollowerCount';
+import { FollowModal, FollowModalVisibility } from './FollowModal';
 import { WalletDependantPageProps } from './getProfileServerSideProps';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -50,12 +50,12 @@ const ProfilePageHead = (props: {
       <meta name="twitter:image:src" content={props.twitterProfile?.banner} />
       <meta name="twitter:site" content="@holaplex" />
       {/* Open Graph */}
-      <meta name="og-title" content={title} />
-      <meta name="og-description" content={description} />
-      <meta name="og-image" content={props.twitterProfile?.banner} />
-      <meta name="og-url" content={`https://holaplex.com/profiles/${props.publicKey}/nfts`} />
-      <meta name="og-site_name" content="Holaplex" />
-      <meta name="og-type" content="product" />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={props.twitterProfile?.banner} />
+      <meta property="og:url" content={`https://holaplex.com/profiles/${props.publicKey}/nfts`} />
+      <meta property="og:site_name" content="Holaplex" />
+      <meta property="og:type" content="website" />
     </Head>
   );
 };
