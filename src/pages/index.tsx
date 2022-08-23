@@ -1,9 +1,5 @@
 import { QueryContext } from '@/hooks/useApolloQuery';
 import {
-  FeaturedAuctionsSectionData,
-  FeaturedAuctionsSection,
-} from '@/views/home/FeaturedAuctionsSection';
-import {
   FeaturedBuyNowListingsData,
   FeaturedBuyNowListingsSection,
 } from '@/views/home/FeaturedBuyNowListingsSection';
@@ -41,7 +37,6 @@ export interface HomeData {
   featuredBuyNowListings: FeaturedBuyNowListingsData;
   featuredProfiles: FeaturedProfilesData;
   featuredMarketplaces: FeaturedMarketplacesData;
-  featuredAuctions: FeaturedAuctionsSectionData;
 }
 
 export default function Home(): JSX.Element {
@@ -64,7 +59,6 @@ export default function Home(): JSX.Element {
       featuredProfileLimit: 24,
       featuredBowNowLimit: 24,
       feedEventsLimit: 12,
-      featuredAuctionsLimit: 18,
     },
     timeIntervales
   );
